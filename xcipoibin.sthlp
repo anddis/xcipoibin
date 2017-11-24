@@ -98,7 +98,7 @@ Note: the term "exact confidence interval" refers to its being derived from the 
 
     {title:Standardized Incidence Ratios (SIRs)}
 
-{pstd}Input data on observed and expected prostate cancer cases by calendar year (1998-2012) [5].{p_end}
+{pstd}Load data on observed and expected prostate cancer cases by calendar year (1998-2012) [5].{p_end}
 {phang2}{stata `". use https://raw.githubusercontent.com/anddis/xcipoibin/master/ex_sir.dta"'}{p_end}
 
 {pstd}List the data.{p_end}
