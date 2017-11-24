@@ -74,86 +74,60 @@ Note: the term "exact confidence interval" refers to its being derived from the 
 {opt level(#)} specifies the confidence level, as a percentage, for confidence intervals. The default is {cmd:level(95)} or as set by {helpb set level}.
 
 {phang}
-{opth gen:erate(newvar:newvars)} sdd.
+{opth gen:erate(newvar:newvars)} create 3 new variables containing means/proportions, lower and upper exact confidence intervals.
 
 
 {title:Examples}
 
     {title:Incidence Rates (IRs)}
 
-{pstd}Input data on prostate cancer cases by 5-year categories of attained age in 1998 [5].{p_end}
-{phang2}{cmd:. clear}{p_end}
-{phang2}{cmd:. input int calendar_year byte(age_category obs_pca_cases) int person_years}{p_end}
-{phang2}{cmd:1998 45  1 6449}{p_end}
-{phang2}{cmd:1998 50  1 8631}{p_end}
-{phang2}{cmd:1998 55  8 7435}{p_end}
-{phang2}{cmd:1998 60 26 6025}{p_end}
-{phang2}{cmd:1998 65 36 6436}{p_end}
-{phang2}{cmd:1998 70 48 5694}{p_end}
-{phang2}{cmd:1998 75 49 4637}{p_end}
-{phang2}{cmd:1998 80  4  346}{p_end}
-{phang2}{cmd:end}{p_end}
+{pstd}Load data on prostate cancer cases by 5-year categories of attained age in 1998 [5].{p_end}
+{phang2}{stata `". use https://raw.githubusercontent.com/anddis/xcipoibin/master/ex_ir.dta"'}{p_end}
+
+{pstd}List the data.{p_end}
+{phang2}{stata . list, noobs sep(0) abbrev(15)}
 
 {pstd}Calculate IRs per 100,000 person-years and exact 95% CIs, assuming that
  the number of events per category of attained age follows a Poisson distribution.{p_end}
-{phang2}{cmd:. xcipoibin obs_pca_cases person_years, per(100000) gen(rate lowerCI upperCI) poisson}{p_end}
+{phang2}{stata . xcipoibin obs_pca_cases person_years, per(100000) gen(rate lowerCI upperCI) poisson}{p_end}
 
 {pstd}List the results.{p_end}
-{phang2}{cmd:. format rate lowerCI upperCI %9.2f}{p_end}
-{phang2}{cmd:. list, noobs sep(0)}{p_end}
+{phang2}{stata . format rate lowerCI upperCI %9.2f}{p_end}
+{phang2}{stata . list, noobs sep(0) abbrev(15)}{p_end}
 
 
     {title:Standardized Incidence Ratios (SIRs)}
 
 {pstd}Input data on observed and expected prostate cancer cases by calendar year (1998-2012) [5].{p_end}
-{phang2}{cmd:. clear}{p_end}
-{phang2}{cmd:. input int(calendar_year obs_pca_cases exp_pca_cases)}{p_end}
-{phang2}{cmd:1998 173 168}{p_end}
-{phang2}{cmd:1999 223 197}{p_end}
-{phang2}{cmd:2000 226 212}{p_end}
-{phang2}{cmd:2001 256 220}{p_end}
-{phang2}{cmd:2002 258 232}{p_end}
-{phang2}{cmd:2003 363 269}{p_end}
-{phang2}{cmd:2004 329 293}{p_end}
-{phang2}{cmd:2005 356 288}{p_end}
-{phang2}{cmd:2006 275 269}{p_end}
-{phang2}{cmd:2007 309 256}{p_end}
-{phang2}{cmd:2008 303 246}{p_end}
-{phang2}{cmd:2009 343 284}{p_end}
-{phang2}{cmd:2010 281 257}{p_end}
-{phang2}{cmd:2011 275 247}{p_end}
-{phang2}{cmd:2012 243 221}{p_end}
-{phang2}{cmd:end}{p_end}
+{phang2}{stata `". use https://raw.githubusercontent.com/anddis/xcipoibin/master/ex_sir.dta"'}{p_end}
+
+{pstd}List the data.{p_end}
+{phang2}{stata . list, noobs sep(0) abbrev(15)}
 	
 {pstd}Calculate SIRs and exact 95% CIs, assuming that
  the number of events per calendar year follows a Poisson distribution.{p_end}
-{phang2}{cmd:. xcipoibin obs_pca_cases exp_pca_cases, gen(sir lowerCI upperCI) poisson}{p_end}
+{phang2}{stata . xcipoibin obs_pca_cases exp_pca_cases, gen(sir lowerCI upperCI) poisson}{p_end}
 
 {pstd}Plot the results.{p_end}
-{phang2}{cmd:. tw (rcap upperCI lowerCI calendar_year, lc(black)) ///}{p_end}
-{phang2}{cmd:(scatter sir calendar_year, m(Oh) mc(black)) , ///}{p_end}
-{phang2}{cmd:legend(off) graphr(color(white) lw(thick) lc(white)) bgcolor(white) ///}{p_end}
-{phang2}{cmd:xlabel(1998(1)2012, labsize(small)) ylabel(1(0.2)1.6, angle(horiz) format(%3.2f)) ///}{p_end}
-{phang2}{cmd:ytitle("Standardized Incidence Ratio")  yscale(log) ///}{p_end}
-{phang2}{cmd:xtitle("Calendar year")}{p_end}
+{phang2}{stata `". tw (rcap upperCI lowerCI calendar_year, lc(black)) (scatter sir calendar_year, m(Oh) mc(black)) , legend(off) scheme(s1mono) xlabel(1998/2012, labsize(small)) ylabel(1(0.2)1.6, angle(horiz) format(%3.2f)) ytitle(SIR)  yscale(log) xtitle(Calendar year)"'}{p_end}
 
 
     {title:Standardized Mortality Ratios (SIRs) following strate}
 
 {pstd}Replicate example from {helpb strate}.{p_end}
-{phang2}{cmd:. webuse diet}{p_end}
-{phang2}{cmd:. stset dox, origin(time doe) id(id) scale(365.25) fail(fail==1 3 13)}{p_end}
-{phang2}{cmd:. stsplit ageband, at(40(10)70) after(time=dob) trim}{p_end}
-{phang2}{cmd:. merge m:1 ageband using http://www.stata-press.com/data/r15/smrchd}{p_end}
-{phang2}{cmd:. strate ageband, per(1000) smr(rate) output(smr)}{p_end}
+{phang2}{stata . webuse diet}{p_end}
+{phang2}{stata . stset dox, origin(time doe) id(id) scale(365.25) fail(fail==1 3 13)}{p_end}
+{phang2}{stata . stsplit ageband, at(40(10)70) after(time=dob) trim}{p_end}
+{phang2}{stata `". merge m:1 ageband using http://www.stata-press.com/data/r15/smrchd"'}{p_end}
+{phang2}{stata . strate ageband, per(1000) smr(rate) output(smr)}{p_end}
 
 {pstd}Calculate exact 95% CIs.{p_end}
-{phang2}{cmd:. use smr, clear}{p_end}
-{phang2}{cmd:. xcipoibin _D _E, poisson gen(_SMR2 _Lower_XCT _Upper_XCT)}{p_end}
+{phang2}{stata . use smr, clear}{p_end}
+{phang2}{stata . xcipoibin _D _E, poisson gen(_SMR2 _Lower_XCT _Upper_XCT)}{p_end}
 
 {pstd}List the results.{p_end}
-{phang2}{cmd:. format _SMR2 _Lower_XCT _Upper_XCT %8.4f}{p_end}
-{phang2}{cmd:. list, noobs sep(0) abbreviate(10)}{p_end}
+{phang2}{stata . format _SMR2 _Lower_XCT _Upper_XCT %8.4f}{p_end}
+{phang2}{stata . list, noobs sep(0) abbreviate(10)}{p_end}
 
 
 {title:Stored results}
