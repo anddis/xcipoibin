@@ -1,0 +1,13 @@
+*************** xcipoibin.pkg
+v 3
+d 'XCIPOIBIN': Exact confidence intervals for Poisson counts and Binomial proportions from aggregate data 
+d
+d A.Discacciati
+d
+d After installation, see help xcipoibin
+d
+d Current version: 1.0.0
+d Distribution-Date: 24nov2017
+d
+f xcipoibin.ado
+f xcipoibin.sthlp

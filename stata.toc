@@ -1,0 +1,4 @@
+*************** stata.toc
+v 3
+d 'XCIPOIBIN': Exact confidence intervals for Poisson counts and Binomial proportions from aggregate data 
+p xcipoibin
