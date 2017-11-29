@@ -39,7 +39,7 @@ help xcipoibin
 
 ### Worked-out examples
 
-Worked-out examples can be found here: [https://rawgit.com/anddis/xcipoibin/master/xcipoibin_ex.html](https://rawgit.com/anddis/xcipoibin/master/xcipoibin_ex.html). See also `help xcipoibin`.
+Worked-out examples can be found here: [https://anddis.github.io/xcipoibin/xcipoibin_ex.html](https://anddis.github.io/xcipoibin/xcipoibin_ex.html). See also `help xcipoibin`.
 
 ### Author
 
