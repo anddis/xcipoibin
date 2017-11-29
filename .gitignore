@@ -1,0 +1,30 @@
+
+# Created by https://www.gitignore.io/api/stata
+
+### Stata ###
+# .gitignore file for git projects containing Stata files
+# Commercial statistical software: http://www.stata.com
+
+xcipoibin_ex.md
+xcipoibin_ex.pdx
+xcipoibin_ex.smcl
+xcipoibin_ex.stmd
+xcipoibin_ex.do
+smr.dta
+sir.png
+
+# Graphic export files from Stata
+# Stata command graph export: http://www.stata.com/manuals14/g-2graphexport.pdf
+#
+# You may add graphic export files to your .gitignore. However you should be
+# aware that this will exclude all image files from this main directory
+# and subdirectories.
+# *.ps
+# *.eps
+# *.wmf
+# *.emf
+# *.pdf
+# *.png
+# *.tif
+
+# End of https://www.gitignore.io/api/stata

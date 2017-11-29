@@ -50,10 +50,10 @@
 {cmd:xcipoibin} is useful for the analysis of aggregate data. The observations usually refer to different levels of one or more categorical variables (e.g.: calendar year, country).
 
 {pstd}
-{cmd:xcipoibin} can be used to calculate exact CIs for Incidence Rates (# events / total person-time), Standardized Incidence Ratios (# observed events / # expected events), or Cumulative Incidences (# events / total population) under Poisson or Binomial distributional assumptions. 
+{cmd:xcipoibin} can be used to calculate exact CIs for Incidence Rates (# events / total person-time), Standardized Incidence Ratios (# observed events / # expected events), or Cumulative Incidences (# events / total population) under Poisson or Binomial distributional assumptions.  
 
 {pstd}
-{cmd:xcipoibin} is useful to calculate exact CIs following commands that do not provide them. See for example {helpb strate}, which calculates normal-based CIs for IRs/SIRs on the log scale.
+{cmd:xcipoibin} can be used to calculate exact CIs following commands that do not provide them. See for example {helpb strate}, which calculates normal-based CIs for IRs/SIRs on the log scale.
 
 {pstd}
 Note: the term "exact confidence interval" refers to its being derived from the Poisson or the Binomial distribution, i.e. the distribution exactly generating the data, rather than resulting in exactly the nominal coverage. The actual coverage probability is guaranteed to be greater than or equal to the nominal confidence level (see {helpb ci}).
@@ -119,7 +119,7 @@ Note: the term "exact confidence interval" refers to its being derived from the 
 {phang2}{stata . stset dox, origin(time doe) id(id) scale(365.25) fail(fail==1 3 13)}{p_end}
 {phang2}{stata . stsplit ageband, at(40(10)70) after(time=dob) trim}{p_end}
 {phang2}{stata `". merge m:1 ageband using http://www.stata-press.com/data/r15/smrchd"'}{p_end}
-{phang2}{stata . strate ageband, per(1000) smr(rate) output(smr)}{p_end}
+{phang2}{stata . strate ageband, per(1000) smr(rate) output(smr, replace)}{p_end}
 
 {pstd}Calculate exact 95% CIs.{p_end}
 {phang2}{stata . use smr, clear}{p_end}
