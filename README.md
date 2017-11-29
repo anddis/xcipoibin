@@ -37,9 +37,9 @@ from within Stata, where *mydir* is the directory that containes the extracted f
 help xcipoibin
 ```
 
-### Examples
+### Worked-out examples
 
-Worked-out examples can be found here: [https://rawgit.com/anddis/xcipoibin/master/xcipoibin_ex.html](https://rawgit.com/anddis/xcipoibin/master/xcipoibin_ex.html). See also `help xcipoisson`.
+Worked-out examples can be found here: [https://rawgit.com/anddis/xcipoibin/master/xcipoibin_ex.html](https://rawgit.com/anddis/xcipoibin/master/xcipoibin_ex.html). See also `help xcipoibin`.
 
 ### Author
 

@@ -1,0 +1,111 @@
+---
+title: <code>xcpoibin</code> examples
+author: Andrea Discacciati, Karolinska Institutet
+date: 29 November 2017
+---
+
+`xcipoibin` calculates and stores in new variables the exact confidence intervals for means of Poisson- or proportions of Binomial-distributed random variables.
+
+`xcipoibin` is useful for the analysis of aggregate data. The observations usually refer to different levels of one or more categorical variables (e.g.: calendar year, country).
+
+`xcipoibin` can be used to calculate exact CIs for Incidence Rates (# events / total person-time), Standardized Incidence Ratios (# observed events / # expected events), or Cumulative Incidences (# events / total population) under Poisson or Binomial distributional assumptions. 
+
+`xcipoibin` can be used to calculate exact CIs following commands that do not provide them. See for example `help strate`, which calculates normal-based CIs for IRs/SIRs on the log scale.
+
+Note: the term "exact confidence interval" refers to its being derived from the Poisson or the Binomial distribution, i.e. the distribution exactly generating the data, rather than resulting in exactly the nominal coverage. The actual coverage probability is guaranteed to be greater than or equal to the nominal confidence level `help ci`).
+
+
+## Incidence Rates (IRs)
+
+Load data on prostate cancer cases by 5-year categories of attained age in 1998 [5].
+```s
+use https://raw.githubusercontent.com/anddis/xcipoibin/master/ex_ir.dta, clear
+```
+
+List the data.
+```s
+list, noobs sep(0) abbrev(15)
+```
+
+Calculate IRs per 100,000 person-years and exact 95% CIs, assuming that
+ the number of events per category of attained age follows a Poisson distribution.
+```s
+xcipoibin obs_pca_cases person_years, per(100000) gen(rate lowerCI upperCI) poisson
+```
+
+List the results.
+```s
+format rate lowerCI upperCI %9.2f
+list, noobs sep(0) abbrev(15)
+```
+
+## Standardized Incidence Ratios (SIRs)
+
+Load data on observed and expected prostate cancer cases by calendar year (1998-2012) [5].
+```s
+use https://raw.githubusercontent.com/anddis/xcipoibin/master/ex_sir.dta, clear
+```
+
+List the data.
+```s
+list, noobs sep(0) abbrev(15)
+```
+
+Calculate SIRs and exact 95% CIs, assuming that
+ the number of events per calendar year follows a Poisson distribution.
+```s
+xcipoibin obs_pca_cases exp_pca_cases, gen(sir lowerCI upperCI) poisson
+```
+
+Plot the results.
+```s
+tw (rcap upperCI lowerCI calendar_year, lc(black)) ///
+	(scatter sir calendar_year, m(Oh) mc(black)) , ///
+	legend(off) scheme(s1mono) xlabel(1998/2012, labsize(small)) ///
+	ylabel(1(0.2)1.6, angle(horiz) format(%3.2f)) ytitle(SIR) ///
+	yscale(log) xtitle(Calendar year)
+graph export sir.png, replace
+```
+![](sir.png){width="800px"}
+
+
+## Standardized Mortality Ratios (SIRs) following strate
+
+Replicate the example from `strate`.
+```s
+webuse diet, clear
+stset dox, origin(time doe) id(id) scale(365.25) fail(fail==1 3 13)
+stsplit ageband, at(40(10)70) after(time=dob) trim
+merge m:1 ageband using http://www.stata-press.com/data/r15/smrchd
+strate ageband, per(1000) smr(rate) output(smr, replace)
+```
+
+Calculate exact 95% CIs.
+```s
+use smr, clear
+xcipoibin _D _E, poisson gen(_SMR2 _Lower_XCT _Upper_XCT)
+```
+
+List the results.
+```s
+format _SMR2 _Lower_XCT _Upper_XCT %8.4f
+list, noobs sep(0) abbreviate(10)
+```
+
+## References
+[1] Breslow N, Day NE. 1987. Statistical Methods in Cancer Research: Volume II, The Design and Analysis of Cohort Studies. Lyon: International Agency for Research on Cancer.
+
+[2] StataCorp. 2015. Stata 14 Base Reference Manual. College Station, TX: Stata Press.
+
+[3] Confidence intervals for the mean of a Poisson distribution. [https://ms.mcmaster.ca/peter/s743/poissonalpha.html](https://ms.mcmaster.ca/peter/s743/poissonalpha.html)
+
+[4] Brown LD, Cai TT, and DasGupta A. 2001. Interval estimation for a binomial proportion. Statistical Science 16: 101–133.
+
+[5] Discacciati A. 2015. Risk factors for prostate cancer: analysis of primary data, pooling, and related methodological aspects. Karolinska Institutet. [http://hdl.handle.net/10616/44872](http://hdl.handle.net/10616/44872)
+
+\ 
+\ 
+\ 
+\ 
+
+<center>_Generated using_ <a href="http://data.princeton.edu/stata/markdown/" target=_blank>`markstat`</a>.</center>
