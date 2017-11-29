@@ -69,7 +69,7 @@ graph export sir.png, replace
 ![](sir.png){width="800px"}
 
 
-## Standardized Mortality Ratios (SIRs) following strate
+## Standardized Mortality Ratios (SMRs) following strate
 
 Replicate the example from `strate`.
 ```s

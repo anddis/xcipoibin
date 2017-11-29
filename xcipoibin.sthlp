@@ -112,7 +112,7 @@ Note: the term "exact confidence interval" refers to its being derived from the 
 {phang2}{stata `". tw (rcap upperCI lowerCI calendar_year, lc(black)) (scatter sir calendar_year, m(Oh) mc(black)) , legend(off) scheme(s1mono) xlabel(1998/2012, labsize(small)) ylabel(1(0.2)1.6, angle(horiz) format(%3.2f)) ytitle(SIR)  yscale(log) xtitle(Calendar year)"'}{p_end}
 
 
-    {title:Standardized Mortality Ratios (SIRs) following strate}
+    {title:Standardized Mortality Ratios (SMRs) following strate}
 
 {pstd}Replicate example from {helpb strate}.{p_end}
 {phang2}{stata . webuse diet}{p_end}
