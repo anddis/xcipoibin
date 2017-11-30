@@ -79,6 +79,9 @@ Note: the term "exact confidence interval" refers to its being derived from the 
 
 {title:Examples}
 
+{pstd}Example are also available at: {browse "https://anddis.github.io/xcipoibin/xcipoibin_ex.html":https://anddis.github.io/xcipoibin/xcipoibin_ex.html}.
+
+
     {title:Incidence Rates (IRs)}
 
 {pstd}Load data on prostate cancer cases by 5-year categories of attained age in 1998 [5].{p_end}

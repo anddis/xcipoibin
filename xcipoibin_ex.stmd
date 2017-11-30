@@ -1,8 +1,6 @@
----
-title: <code>xcpoibin</code> examples
-author: Andrea Discacciati, Karolinska Institutet
-date: 29 November 2017
----
+% <code>xcpoibin</code> examples
+% Andrea Discacciati, Karolinska Institutet
+% `s %td_DD_Month_CCYY date(c(current_date), "DMY")`
 
 `xcipoibin` calculates and stores in new variables the exact confidence intervals for means of Poisson- or proportions of Binomial-distributed random variables.
 
@@ -66,12 +64,11 @@ tw (rcap upperCI lowerCI calendar_year, lc(black)) ///
 	yscale(log) xtitle(Calendar year)
 graph export sir.png, replace
 ```
-![](sir.png){width="800px"}
+![](sir.png){width="800px" .center}
 
+## Standardized Mortality Ratios (SMRs) following `strate`
 
-## Standardized Mortality Ratios (SMRs) following strate
-
-Replicate the example from `strate`.
+Replicate the example from `help strate`.
 ```s
 webuse diet, clear
 stset dox, origin(time doe) id(id) scale(365.25) fail(fail==1 3 13)
@@ -108,4 +105,4 @@ list, noobs sep(0) abbreviate(10)
 \ 
 \ 
 
-<center>_Generated using_ <a href="http://data.princeton.edu/stata/markdown/" target=_blank>`markstat`</a>.</center>
+<center>_Generated with_ <a href="http://data.princeton.edu/stata/markdown/" target=_blank>`markstat`</a>.</center>
